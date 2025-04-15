@@ -1,13 +1,17 @@
 # GigaProsjekt
 
 ## Oppgaven
-Dere skal kunne flytte roboten til en hjemposisjon, som er en nøytral posisjon (for eksempel 90° knekk på albue). Dere skal kunne kjøre en node, en launch-fil eller en kommando (via GUI eller terminal) som flytter roboten dit.
+Dere skal kunne flytte roboten til en hjemposisjon, som er en nøytral posisjon (for eksempel 90° knekk på albue). 
+
+Dere skal kunne kjøre en node, en launch-fil eller en kommando (via GUI eller terminal) som flytter roboten dit.
+
 Roboten skal kunne gjøre en serie med oppgaver når den starter:
 * Flytte seg til å kunne ta et oversiktsbilde over arbeidsbordet.
 * Detektere tre kuber i forskjellige farger fra dette bildet (foreløpig rød, gul og blå, men fargen kan variere).
 * Roboten skal så bevege seg nært (typ 10 cm, men det trengs ikke være nøyaktig) til først den røde, så den gule så den blå. Roboten kan bevege seg via et mellompunkt mellom de tre.
 * Hvis roboten ikke detekterer en farge, skal den prøve å lete etter den. Det kan være så enkelt som å flytte til en ny posisjon og ta bilde, men kan også være at den tar en serie med bilder fra flere posisjoner.
 * Hvis den fortsatt ikke finner kuben skal den stoppe og gi en varsel.
+
 Dere kan som sagt få ekstra poeng ved å utvide disse kriteriene, og også å fjerne noen for å erstatte det med noe annet. Dette må i så fall rettferdiggjøres, og det er lurt om dere spør først.
 
 
