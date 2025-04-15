@@ -31,7 +31,8 @@ Det blir sett etter om dere gir robotsystemet tilleggsfunksjoner som for eksempe
 * oppkobling mot PLS eller andre sensorer eller motorer,
 * bruk av kraftstyring,
 * bygge noe rundt, osv.
-Dere trenger ikke å gjøre alt, og det vil vurderes ut ifra kvalitet(!!!). Så en godt implementert ekstrafunksjon er bedre enn ti dårlig implementerte
-Med i denne vurderingen vil også anvendelse og relevans bli tatt i betraktning.
 * Hvis dere velger å forme løsningen rundt en industriell problemstilling (del av en produksjonsprosess, løse et problem for en bedrift, e.l.), vil det også telle.
 Det gjør ingenting om dere må gjøre forenklinger eller gjør en dårligere jobb enn en reell industriell løsning, så lenge det rettferdiggjøres i rapporten.
+
+Dere trenger ikke å gjøre alt (altså ekstra), og det vil vurderes ut ifra kvalitet(!!!). Så en godt implementert ekstrafunksjon er bedre enn ti dårlig implementerte
+Med i denne vurderingen vil også anvendelse og relevans bli tatt i betraktning.
