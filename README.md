@@ -1,5 +1,40 @@
 # GigaProsjekt
 
+## Plan
+
+FRIST 30.5 KL 12:00
+
+Hovedansvar: 
+* Få opp kamera fysisk: JA og A
+* ROS2, ryddig noder etc: Ø
+* Ekstrafunksjoner: K og Ø
+* Teori underveis: K og Ø / når folk har tid, ALLE NOTER UNDERVEIS
+* Bildeprossesering, finne pos: JA og A (spør Ø og K)
+* Kontrollere robot (inverskinematikk, peke etc.): K og Ø
+* Error farge/kube: JA og A
+
+
+24.4 - 27.4: 
+* Få opp ROS2 (Ø)
+* Fordele oppgaver / lage plan
+* Få igang kamera, research fargedeteksjon (opencv), feste til robot (JA og A)
+* Prøve å koble på robot, teste fysisk greier (K og Ø)
+
+28.4 - 4.5:
+* 
+
+5.5 - 11.5:
+
+12.5 - 18.5:
+
+19.5 - 25.5:
+
+26.5 - 30.5:
+
+
+
+
+
 ## Oppgaven
 Dere skal kunne flytte roboten til en hjemposisjon, som er en nøytral posisjon (for eksempel 90° knekk på albue). 
 
