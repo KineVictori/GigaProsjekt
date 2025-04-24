@@ -6,7 +6,7 @@ FRIST 30.5 KL 12:00
 
 Hovedansvar: 
 * Få opp kamera fysisk: JA og A
-* ROS2, ryddig noder etc: Ø
+* ROS2, ryddig noder etc: Ø og K
 * Ekstrafunksjoner: K og Ø
 * Teori underveis: K og Ø / når folk har tid, ALLE NOTER UNDERVEIS
 * Bildeprossesering, finne pos: JA og A (spør Ø og K)
@@ -26,6 +26,7 @@ Hovedansvar:
 5.5 - 11.5:
 
 12.5 - 18.5:
+* BLI FERDIG / STARTE PÅ RAPPORT
 
 19.5 - 25.5:
 
