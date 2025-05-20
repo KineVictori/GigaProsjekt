@@ -30,7 +30,11 @@ while CAMERA_PORT not in availablePorts:
     CAMERA_PORT = int(input(f"Velg et tilgjengelig kamera fra denne lista ({availablePorts}):"))
 
 # Bruk de kalibrerte HSV-verdiene fra kalibreringen
-hsvVals = {'hmin': 0, 'smin': 164, 'vmin': 139, 'hmax': 179, 'smax': 255, 'vmax': 218}  
+hsvVals = {
+    "Rød": {'hmin': 160, 'smin': 144, 'vmin': 0, 'hmax': 179, 'smax': 255, 'vmax': 0},
+    "Blå": {'hmin': 111, 'smin': 0, 'vmin': 0, 'hmax': 179, 'smax': 255, 'vmax': 255},
+    "Grønn": {'hmin': 31, 'smin': 46, 'vmin': 0, 'hmax': 179, 'smax': 76, 'vmax': 185}
+}  
 
 # Opprett ColorFinder (ikke i kalibreringsmodus)
 myColorFinder = ColorFinder(False)
@@ -58,7 +62,8 @@ def getBallPosition(cap, hsvVals, centerPoint):
         return None, None, None
 
     # Prosesser bildet
-    imgColor, mask = myColorFinder.update(img, hsvVals)
+    for name, hsv in hsvVals.items():
+        imgColor, mask = myColorFinder.update(img, hsv)
     imgContour, contours = cvzone.findContours(img, mask)
 
     # Vis bilde med sporing
