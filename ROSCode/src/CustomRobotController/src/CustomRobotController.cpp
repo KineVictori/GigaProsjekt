@@ -1,4 +1,7 @@
 #include <memory>
+#include <iostream>
+#include <thread>
+#include <vector>
 
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.hpp>
@@ -8,43 +11,52 @@ int main(int argc, char * argv[])
   // Initialize ROS and create the Node
   rclcpp::init(argc, argv);
   auto const node = std::make_shared<rclcpp::Node>(
-    "hello_moveit",
+    "small_joint_move",
     rclcpp::NodeOptions().automatically_declare_parameters_from_overrides(true)
   );
+  node->set_parameter(rclcpp::Parameter("use_sim_time", false));
 
   // Create a ROS logger
-  auto const logger = rclcpp::get_logger("CustomRobotController");
+  auto const logger = rclcpp::get_logger("SmallJointMove");
 
-  // Create the MoveIt MoveGroup Interface
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(node);
+  auto spinner = std::thread([&executor]() { executor.spin(); });
+
   using moveit::planning_interface::MoveGroupInterface;
-  auto move_group_interface = MoveGroupInterface(node, "manipulator");
+  MoveGroupInterface move_group_interface(node, "ur_manipulator");
 
-  // Set a target Pose
-  auto const target_pose = []{
-    geometry_msgs::msg::Pose msg;
-    msg.orientation.w = 1.0;
-    msg.position.x = 0.28;
-    msg.position.y = -0.2;
-    msg.position.z = 0.5;
-    return msg;
-  }();
-  move_group_interface.setPoseTarget(target_pose);
+  // Get current joint values
+  
+  std::vector<double> joint_group_positions = move_group_interface.getCurrentJointValues();
 
-  // Create a plan to that target pose
-  auto const [success, plan] = [&move_group_interface]{
-    moveit::planning_interface::MoveGroupInterface::Plan msg;
-    auto const ok = static_cast<bool>(move_group_interface.plan(msg));
-    return std::make_pair(ok, msg);
-  }();
+  std::cout << "Num jointes: " << joint_group_positions.size() << "\n";
 
-  // Execute the plan
-  if(success) {
-    move_group_interface.execute(plan);
-  } else {
-    RCLCPP_ERROR(logger, "Planning failed!");
+  for (int i = 0; i < joint_group_positions.size(); i++) {
+    joint_group_positions[i] += 0.3;
   }
 
-  // Shutdown ROS
+  // Modify one joint slightly (e.g., add 0.1 radians to wrist_1_joint)
+  //joint_group_positions[3] += 0.1;  // wrist_1_joint index
+
+  // Set the new target
+  move_group_interface.setJointValueTarget(joint_group_positions);
+
+  // Plan and execute
+  moveit::planning_interface::MoveGroupInterface::Plan plan;
+  bool success = static_cast<bool>(move_group_interface.plan(plan));
+
+  if (success)
+  {
+    RCLCPP_INFO(logger, "Planning successful, executing...");
+    move_group_interface.execute(plan);
+  }
+  else
+  {
+    RCLCPP_ERROR(logger, "Planning failed.");
+  }
+
   rclcpp::shutdown();
+  spinner.join();
   return 0;
 }
