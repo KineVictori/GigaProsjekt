@@ -32,7 +32,22 @@ Hovedansvar:
 
 26.5 - 30.5:
 
+## Møtelogg
 
+# 23.05
+
+Oppmøte: Alle
+
+Hva er gjort?
+* Programatisk kontroll av robot
+* Detektere ulike objekter med ulike farger
+
+Hva skal gjøres?
+* Inverskinematikk
+* Montere kamera med feste
+* Gjøre om deteksjonskode til ROS
+
+Frist/Neste møte: 26.05
 
 
 
