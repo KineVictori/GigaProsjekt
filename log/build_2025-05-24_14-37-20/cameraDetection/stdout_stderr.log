@@ -1,0 +1,39 @@
+running egg_info
+creating ../../../build/cameraDetection/cameraDetection.egg-info
+writing ../../../build/cameraDetection/cameraDetection.egg-info/PKG-INFO
+writing dependency_links to ../../../build/cameraDetection/cameraDetection.egg-info/dependency_links.txt
+writing entry points to ../../../build/cameraDetection/cameraDetection.egg-info/entry_points.txt
+writing requirements to ../../../build/cameraDetection/cameraDetection.egg-info/requires.txt
+writing top-level names to ../../../build/cameraDetection/cameraDetection.egg-info/top_level.txt
+writing manifest file '../../../build/cameraDetection/cameraDetection.egg-info/SOURCES.txt'
+reading manifest file '../../../build/cameraDetection/cameraDetection.egg-info/SOURCES.txt'
+writing manifest file '../../../build/cameraDetection/cameraDetection.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build
+creating /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib
+creating /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection
+copying cameraDetection/calibration.py -> /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection
+copying cameraDetection/camera.py -> /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection
+copying cameraDetection/__init__.py -> /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection
+running install
+running install_lib
+creating /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection
+copying /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection/calibration.py -> /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection
+copying /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection/camera.py -> /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection
+copying /home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/build/lib/cameraDetection/__init__.py -> /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection
+byte-compiling /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection/calibration.py to calibration.cpython-312.pyc
+byte-compiling /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection/camera.py to camera.cpython-312.pyc
+byte-compiling /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/share/ament_index
+creating /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/share/ament_index/resource_index
+creating /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/share/ament_index/resource_index/packages
+copying resource/cameraDetection -> /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/share/ament_index/resource_index/packages
+copying package.xml -> /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/share/cameraDetection
+running install_egg_info
+Copying ../../../build/cameraDetection/cameraDetection.egg-info to /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/python3.12/site-packages/cameraDetection-0.0.0-py3.12.egg-info
+running install_scripts
+Installing calibartion script to /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/cameraDetection
+Installing camera script to /home/aron-larsen/gigaProject/GigaProsjekt/install/cameraDetection/lib/cameraDetection
+writing list of installed files to '/home/aron-larsen/gigaProject/GigaProsjekt/build/cameraDetection/install.log'
