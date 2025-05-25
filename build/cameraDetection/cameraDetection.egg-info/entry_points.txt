@@ -1,3 +1,0 @@
-[console_scripts]
-calibartion = cameraDetection.calibration:main
-camera = cameraDetection.camera:main
