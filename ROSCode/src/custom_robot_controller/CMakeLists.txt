@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(CustomRobotController)
+project(custom_robot_controller)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -10,7 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(robot_controller_node src/CustomRobotController.cpp)
+add_executable(robot_controller_node src/custom_robot_controller.cpp)
 target_include_directories(robot_controller_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
