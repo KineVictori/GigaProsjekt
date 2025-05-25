@@ -53,7 +53,7 @@ def generate_launch_description():
 
     # Start the camera detection node
     camera_node = Node(
-        package='cameraDetection',
+        package='camera_detection',
         executable='camera_node',
         name='camera_node'
     )
