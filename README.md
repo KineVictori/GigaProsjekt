@@ -6,10 +6,10 @@ FRIST 30.5 KL 12:00
 
 Hovedansvar: 
 * Få opp kamera fysisk: JA og A
-* ROS2, ryddig noder etc: Ø og K
+* ROS2, ryddig noder etc: ALLE
 * Ekstrafunksjoner: K og Ø
-* Teori underveis: K og Ø / når folk har tid, ALLE NOTER UNDERVEIS
-* Bildeprossesering, finne pos: JA og A (spør Ø og K)
+* Teori underveis: ALLE NOTER UNDERVEIS
+* Bildeprossesering, finne pos: JA og A
 * Kontrollere robot (inverskinematikk, peke etc.): K og Ø
 * Error farge/kube: JA og A
 
@@ -68,7 +68,7 @@ Dere kan som sagt få ekstra poeng ved å utvide disse kriteriene, og også å f
 
 ## Vurderingsgrunnlag
 
-ROS2 (6 poeng)
+ROS2 (6 poeng):
 * Hvor godt er nodene strukturert i forhold til hverandre
 * Hvor godt er nodene implementert (riktig bruk av launch, config, osv.)
 * Hvor konfigurerbart er det (bruk av parameter, argumenter i launch, o.l.)
@@ -76,9 +76,9 @@ ROS2 (6 poeng)
 Kamera og robot (10 poeng):
 * Hvordan er kamera-pipeline satt sammen?
 * Hvor robust er kamera til å detektere kubene (forskjellige posisjoner, høyder, lysforhold, osv.)
+* Hvordan beveger roboten seg (hvor presist, hvordan peker den, korrigerer den underveis, o.l.)
 
 Skriving og teori (10 poeng):
-* Hvordan beveger roboten seg (hvor presist, hvordan peker den, korrigerer den underveis, o.l.) Skriving: 10 poeng
 * Hvor godt skrevet/strukturert er rapporten
 * Hvor godt vurderes metoder, implementering o.l. opp mot hverandre
 * Hvor godt er teoriforståelse i faget 
