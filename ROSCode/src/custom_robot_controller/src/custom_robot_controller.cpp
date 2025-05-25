@@ -26,21 +26,18 @@ int main(int argc, char * argv[])
   using moveit::planning_interface::MoveGroupInterface;
   MoveGroupInterface move_group_interface(node, "ur_manipulator");
 
-  // Get current joint values
   
   std::vector<double> joint_group_positions = move_group_interface.getCurrentJointValues();
 
-  std::cout << "Num jointes: " << joint_group_positions.size() << "\n";
+  geometry_msgs::msg::PoseStamped current_pose = move_group_interface.getCurrentPose();
+  // Z: up/down, positive direction up
+  // X: forward/back, if sitting at table, with robot in front of you, positive direction away from self
+  // Y: left/right, same setting as X, positive is right.
 
-  for (int i = 0; i < joint_group_positions.size(); i++) {
-    joint_group_positions[i] += 0.3;
-  }
-
-  // Modify one joint slightly (e.g., add 0.1 radians to wrist_1_joint)
-  //joint_group_positions[3] += 0.1;  // wrist_1_joint index
-
-  // Set the new target
-  move_group_interface.setJointValueTarget(joint_group_positions);
+  current_pose.pose.position.z += 0.05;
+  current_pose.pose.position.x -= 0.05;
+  current_pose.pose.position.y -= 0.05;
+  move_group_interface.setPoseTarget(current_pose);
 
   // Plan and execute
   moveit::planning_interface::MoveGroupInterface::Plan plan;
