@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'cameraDetection'
+package_name = 'camera_detection'
 
 setup(
     name=package_name,
@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "camera = cameraDetection.camera:main",
-            "calibartion = cameraDetection.calibration:main",
+            f"camera = {package_name}.camera:main",
+            f"calibartion = {package_name}.calibration:main",
         ],
     },
 )
