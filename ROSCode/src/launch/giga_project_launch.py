@@ -60,7 +60,7 @@ def generate_launch_description():
 
     # Start the custom robot controller node
     robot_controller_node = Node(
-        package='CustomRobotController',
+        package='custom_robot_controller',
         executable='robot_controller_node',
         name='robot_controller_node'
     )
