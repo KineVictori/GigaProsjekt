@@ -11,7 +11,7 @@ public:
         geometry_msgs::msg::Pose msg;
         msg.position.x = point.x;
         msg.position.y = point.y;
-        msg.position.z = point.z - 0.1;
+        msg.position.z = point.z + 0.1;
         msg.orientation.x = 0;
         msg.orientation.y = 0;
         msg.orientation.z = 0;
