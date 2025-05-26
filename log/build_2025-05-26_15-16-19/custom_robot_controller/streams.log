@@ -1,0 +1,23 @@
+[0.290s] Invoking command in '/home/aron-larsen/gigaProject/GigaProsjekt/build/custom_robot_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aron-larsen/gigaProject/GigaProsjekt/install/camera_detection:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/aron-larsen/gigaProject/GigaProsjekt/ROSCode/src/custom_robot_controller -DCMAKE_INSTALL_PREFIX=/home/aron-larsen/gigaProject/GigaProsjekt/install/custom_robot_controller
+[0.310s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.622s] [31mCMake Error at CMakeLists.txt:10 (find_package):
+[0.622s]   By not providing "Findmoveit_ros_planning_interface.cmake" in
+[0.622s]   CMAKE_MODULE_PATH this project has asked CMake to find a package
+[0.623s]   configuration file provided by "moveit_ros_planning_interface", but CMake
+[0.623s]   did not find one.
+[0.623s] 
+[0.623s]   Could not find a package configuration file provided by
+[0.623s]   "moveit_ros_planning_interface" with any of the following names:
+[0.623s] 
+[0.623s]     moveit_ros_planning_interfaceConfig.cmake
+[0.623s]     moveit_ros_planning_interface-config.cmake
+[0.623s] 
+[0.623s]   Add the installation prefix of "moveit_ros_planning_interface" to
+[0.624s]   CMAKE_PREFIX_PATH or set "moveit_ros_planning_interface_DIR" to a directory
+[0.624s]   containing one of the above files.  If "moveit_ros_planning_interface"
+[0.624s]   provides a separate development package or SDK, be sure it has been
+[0.624s]   installed.
+[0.624s] 
+[0.624s] [0m
+[0.624s] -- Configuring incomplete, errors occurred!
+[0.629s] Invoked command in '/home/aron-larsen/gigaProject/GigaProsjekt/build/custom_robot_controller' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/aron-larsen/gigaProject/GigaProsjekt/install/camera_detection:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/aron-larsen/gigaProject/GigaProsjekt/ROSCode/src/custom_robot_controller -DCMAKE_INSTALL_PREFIX=/home/aron-larsen/gigaProject/GigaProsjekt/install/custom_robot_controller

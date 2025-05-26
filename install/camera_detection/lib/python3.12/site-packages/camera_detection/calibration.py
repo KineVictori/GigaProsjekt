@@ -65,8 +65,6 @@ def main():
     camera.set(3, RESOLUTION[0])
     camera.set(4, RESOLUTION[1])
 
-    setupTrackbars()
-
     print("Starter kamerastream. Trykk 's' for å lagre HSV-verdier, 'q' for å avslutte.")
 
     while True:
@@ -76,33 +74,23 @@ def main():
             break
 
         # Blur for å jevne ut støy
-        img_blur = cv2.GaussianBlur(img, (7, 7), 0)
+        img = cv2.GaussianBlur(img, (7, 7), 0)
 
         # HSV-basert fargefiltrering
-        hsv = cv2.cvtColor(img_blur, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         
         hsv_vals = getTrackbarValues()
         lower = np.array([hsv_vals["hmin"], hsv_vals["smin"], hsv_vals["vmin"]])
         upper = np.array([hsv_vals["hmax"], hsv_vals["smax"], hsv_vals["vmax"]])
 
-        mask = cv2.inRange(hsv, lower, upper)
-        result = cv2.bitwise_and(img, img, mask = mask)
+        mask = cv2.inRAnge(hsv_vals, lower, upper)
 
-        # Finn og tegn konturer
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        for cnt in contours:
-            area = cv2.contourArea(cnt)
-            if area > 100:
-                x, y, w, h = cv2.boundingRect(cnt)
-                cx, cy = x + w // 2, y + h // 2
-                cv2.rectangle(result, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.circle(result, (cx, cy), 5, (0, 0, 255), -1)
+        # Finn konturer med lavere minArea
+        imgContour, _ = cv2.findContours(img, mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE, minArea=100)
 
         # Vis resultater
-        cv2.imshow("Kalibrering - Original", img)
-        cv2.imshow("Kalibrering - Maske", mask)
-        cv2.imshow("Kalibrering - Resultat", result)
-        
+        cv2.imshow("Kalibrering - Juster HSV verdier", imgContour)
+
         key = cv2.waitKey(1) & 0xFF
         if key == ord('s'):
             print("Lagrer verdier:", hsv_vals)
