@@ -67,6 +67,12 @@ def generate_launch_description():
         name='detection_node'
     )
 
+    object_pointer_node = Node(
+        package='object_pointer',
+        executable='object_pointer_node',
+        name='object_pointer_node',
+    )
+
     # Start the custom robot controller node
     robot_controller_node = Node(
         package='custom_robot_controller',
@@ -78,7 +84,8 @@ def generate_launch_description():
     return LaunchDescription([
         ur_control_launch,
         ur_moveit_launch,
-        camera_node,
-        detection_node,
+        #camera_node,
+        #detection_node,
+        object_pointer_node,
         robot_controller_node,
     ])

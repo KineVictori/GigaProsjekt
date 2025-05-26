@@ -17,6 +17,10 @@ find_package(geometry_msgs REQUIRED)
 add_executable(object_pointer_node src/object_pointer_node.cpp)
 ament_target_dependencies(object_pointer_node rclcpp std_msgs geometry_msgs)
 
+install(TARGETS
+  object_pointer_node
+  DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
