@@ -1,3 +1,0 @@
-[console_scripts]
-calibration = camera_detection.calibration:main
-detection_node = camera_detection.detection_node:main
