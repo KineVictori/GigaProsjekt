@@ -53,6 +53,11 @@ private:
       pose.pose.position.y = poseTarget.at(1);
       pose.pose.position.z = poseTarget.at(2);
 
+      pose.pose.orientation.x = poseTarget.at(3);
+      pose.pose.orientation.y = poseTarget.at(4);
+      pose.pose.orientation.z = poseTarget.at(5);
+      pose.pose.orientation.w = poseTarget.at(6);
+
       move_group_interface_->setPoseTarget(pose);
 
       moveit::planning_interface::MoveGroupInterface::Plan plan;
