@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            f"camera = {package_name}.camera:main",
-            f"calibartion = {package_name}.calibration:main",
+            f"detection_node = {package_name}.detection_node:main",
+            f"calibration = {package_name}.calibration:main",
         ],
     },
 )

@@ -18,6 +18,7 @@ def generate_launch_description():
     use_mock_hardware = LaunchConfiguration('use_mock_hardware', default='false')  # Use mock hardware if true
     initial_joint_controller = LaunchConfiguration('initial_joint_controller', default='scaled_joint_trajectory_controller')  # Controller for joints
     launch_rviz = LaunchConfiguration('launch_rviz', default='false')  # Launch RViz if true
+    video_device = LaunchConfiguration('video_device', default='/dev/video0')  # Launch RViz if true
 
     # Include the ur_robot_driver launch file with specified arguments
     ur_control_launch = IncludeLaunchDescription(
@@ -53,9 +54,17 @@ def generate_launch_description():
 
     # Start the camera detection node
     camera_node = Node(
+        package='usb_cam',
+        executable='usb_cam_node_exe',
+        name='camera_node',
+        parameters=[{'video_device': video_device}]
+    )
+    
+    # Start the camera detection node
+    detection_node = Node(
         package='camera_detection',
-        executable='camera_node',
-        name='camera_node'
+        executable='detection_node',
+        name='detection_node'
     )
 
     # Start the custom robot controller node
@@ -70,5 +79,6 @@ def generate_launch_description():
         ur_control_launch,
         ur_moveit_launch,
         camera_node,
+        detection_node,
         robot_controller_node,
     ])

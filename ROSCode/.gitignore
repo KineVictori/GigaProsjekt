@@ -3,3 +3,4 @@ log/
 install/
 .cache
 venv
+__pycache__
