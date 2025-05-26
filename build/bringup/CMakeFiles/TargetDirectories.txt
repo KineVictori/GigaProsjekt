@@ -1,0 +1,9 @@
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/uninstall.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/bringup_uninstall.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/test.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/edit_cache.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/rebuild_cache.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/list_install_components.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/install.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/install/local.dir
+/home/aron-larsen/gigaProject/GigaProsjekt/build/bringup/CMakeFiles/install/strip.dir

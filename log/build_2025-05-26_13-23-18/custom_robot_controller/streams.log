@@ -1,0 +1,36 @@
+[0.370s] Invoking command in '/home/aron-larsen/gigaProject/GigaProsjekt/build/custom_robot_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/aron-larsen/gigaProject/GigaProsjekt/ROSCode/src/custom_robot_controller -DCMAKE_INSTALL_PREFIX=/home/aron-larsen/gigaProject/GigaProsjekt/install/custom_robot_controller
+[0.438s] -- The C compiler identification is GNU 13.3.0
+[0.507s] -- The CXX compiler identification is GNU 13.3.0
+[0.528s] -- Detecting C compiler ABI info
+[0.657s] -- Detecting C compiler ABI info - done
+[0.666s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.666s] -- Detecting C compile features
+[0.667s] -- Detecting C compile features - done
+[0.679s] -- Detecting CXX compiler ABI info
+[0.804s] -- Detecting CXX compiler ABI info - done
+[0.814s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.814s] -- Detecting CXX compile features
+[0.815s] -- Detecting CXX compile features - done
+[0.818s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.988s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.137s] [31mCMake Error at CMakeLists.txt:10 (find_package):
+[1.137s]   By not providing "Findmoveit_ros_planning_interface.cmake" in
+[1.137s]   CMAKE_MODULE_PATH this project has asked CMake to find a package
+[1.137s]   configuration file provided by "moveit_ros_planning_interface", but CMake
+[1.137s]   did not find one.
+[1.137s] 
+[1.138s]   Could not find a package configuration file provided by
+[1.138s]   "moveit_ros_planning_interface" with any of the following names:
+[1.138s] 
+[1.138s]     moveit_ros_planning_interfaceConfig.cmake
+[1.138s]     moveit_ros_planning_interface-config.cmake
+[1.138s] 
+[1.138s]   Add the installation prefix of "moveit_ros_planning_interface" to
+[1.138s]   CMAKE_PREFIX_PATH or set "moveit_ros_planning_interface_DIR" to a directory
+[1.138s]   containing one of the above files.  If "moveit_ros_planning_interface"
+[1.138s]   provides a separate development package or SDK, be sure it has been
+[1.138s]   installed.
+[1.138s] 
+[1.138s] [0m
+[1.139s] -- Configuring incomplete, errors occurred!
+[1.144s] Invoked command in '/home/aron-larsen/gigaProject/GigaProsjekt/build/custom_robot_controller' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/aron-larsen/gigaProject/GigaProsjekt/ROSCode/src/custom_robot_controller -DCMAKE_INSTALL_PREFIX=/home/aron-larsen/gigaProject/GigaProsjekt/install/custom_robot_controller
