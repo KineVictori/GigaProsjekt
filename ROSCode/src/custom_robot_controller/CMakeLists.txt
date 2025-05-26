@@ -10,18 +10,18 @@ find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(robot_controller_node src/custom_robot_controller.cpp)
-target_include_directories(robot_controller_node PUBLIC
+add_executable(custom_robot_controller src/custom_robot_controller.cpp)
+target_include_directories(custom_robot_controller PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(robot_controller_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(custom_robot_controller PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  robot_controller_node
+  custom_robot_controller
   "moveit_ros_planning_interface"
   "rclcpp"
 )
 
-install(TARGETS robot_controller_node
+install(TARGETS custom_robot_controller
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

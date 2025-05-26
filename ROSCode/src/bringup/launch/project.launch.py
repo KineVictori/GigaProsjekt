@@ -34,6 +34,7 @@ def generate_launch_description():
             'robot_ip': robot_ip,
             'use_mock_hardware': use_mock_hardware,
             'initial_joint_controller': initial_joint_controller,
+            'launch_rviz': launch_rviz
         }.items()
     )
 
@@ -74,10 +75,10 @@ def generate_launch_description():
     )
 
     # Start the custom robot controller node
-    robot_controller_node = Node(
+    custom_robot_controller = Node(
         package='custom_robot_controller',
-        executable='robot_controller_node',
-        name='robot_controller_node'
+        executable='custom_robot_controller',
+        name='test_custom_robot_controller',
     )
 
     # Return the launch description with all nodes and included launch files
@@ -87,5 +88,5 @@ def generate_launch_description():
         #camera_node,
         #detection_node,
         object_pointer_node,
-        robot_controller_node,
+        custom_robot_controller,
     ])
