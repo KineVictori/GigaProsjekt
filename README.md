@@ -49,7 +49,20 @@ Hva skal gjøres?
 
 Frist/Neste møte: 26.05
 
+# 26.05
 
+Oppmøte: Alle
+
+Hva er gjort?
+* Programatisk kontroll av robot
+* Inverse Kinematics
+* Detektere ulike objekter med ulike farger
+
+Hva skal gjøres?
+* Error detection om det mangler en farge (A)
+* Bindeledd kamera og IK (JA)
+* Topics mellom kamera og IK (K)
+* Rapport disposisjon (Ø)
 
 ## Oppgaven
 Dere skal kunne flytte roboten til en hjemposisjon, som er en nøytral posisjon (for eksempel 90° knekk på albue). 
