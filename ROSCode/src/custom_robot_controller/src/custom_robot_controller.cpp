@@ -32,6 +32,19 @@ public:
             }
         }
     );
+
+      // home kommando subscriber
+      go_home_subscription_ = this->create_subscription<std_msgs::msg::String>(
+        "/go_home", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+          RCLCPP_INFO(this->get_logger(), "Home kommando mottatt, flytter til home posisjon.");
+          if (move_group_interface_) {
+            set_home_position();
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface ikke initialisert! Kan ikke flytte til home.");
+          }
+        }
+      );
     }
 
   void init_move_group() {
@@ -82,6 +95,7 @@ private:
     std::shared_ptr<moveit::planning_interface::MoveGroupInterface> move_group_interface_;
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr subscription_;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr task_complete_subscription_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr go_home_subscription_;
 
     void joint_callback(const geometry_msgs::msg::Pose &pose) {
       move_group_interface_->setPoseTarget(pose);
