@@ -44,8 +44,8 @@ public:
     RCLCPP_INFO(this->get_logger(), "MoveGroupInterface initialized and home position set.");
   }
 
-  void setHomePosition() {
-    std::vector<double> home_joints = {0.0, -1.57, 1.57, 0.0, 0.0, 0.0};
+  void set_home_position() {
+    std::vector<double> home_joints = {0.0, -1.57, 1.57, 0.0, 0.0, 0.0}; // {shoulder_pan, shoulder_lift, elbow, wrist_1, wrist_2, wrist_3}
 
     move_group_interface_->setJointValueTarget(home_joints);
     move_group_interface_->setStartStateToCurrentState();
