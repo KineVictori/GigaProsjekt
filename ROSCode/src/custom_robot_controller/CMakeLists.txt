@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(moveit_msgs REQUIRED)
 
 add_executable(custom_robot_controller src/custom_robot_controller.cpp)
 target_include_directories(custom_robot_controller PUBLIC
