@@ -5,6 +5,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
+#include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <moveit/move_group_interface/move_group_interface.hpp>
 
@@ -19,6 +20,18 @@ public:
         "/target_robot_pose", 10,
         std::bind(&JointTargetSubscriberNode::joint_callback, this, std::placeholders::_1)
       );
+
+      task_complete_subscription_ = this->create_subscription<std_msgs::msg::String>(
+        "/task_complete", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+            RCLCPP_INFO(this->get_logger(), "Task complete received, returning to home.");
+            if (move_group_interface_) {
+                set_home_position();
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface not initialized! Cannot return to home.");
+            }
+        }
+    );
     }
 
   void init_move_group() {
@@ -61,13 +74,14 @@ public:
     else {
       RCLCPP_ERROR(this->get_logger(), "Failed to set home position.");
     }
-  RCLCPP_INFO(this->get_logger(), "Home position set successfully.");
+  // RCLCPP_INFO(this->get_logger(), "Home position set successfully.");
   }
 
 
 private:
     std::shared_ptr<moveit::planning_interface::MoveGroupInterface> move_group_interface_;
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr subscription_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr task_complete_subscription_;
 
     void joint_callback(const geometry_msgs::msg::Pose &pose) {
       move_group_interface_->setPoseTarget(pose);
