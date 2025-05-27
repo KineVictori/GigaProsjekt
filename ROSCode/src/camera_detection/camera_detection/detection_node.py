@@ -1,6 +1,4 @@
 import cv2
-#import cvzone
-#from cvzone.ColorModule import ColorFinder
 from geometry_msgs.msg import Point
 from std_msgs.msg import String
 from rclpy.node import Node
@@ -23,8 +21,8 @@ class Detection(Node):
 
         # Publish object position
         self.publisher = self.create_publisher(
-            Image,
-            'object_position',
+            Point,
+            "object_position",
             10)
         
         # Publisher for feildetektering
@@ -41,9 +39,9 @@ class Detection(Node):
         self.center_point = (self.resolution[0]//2, self.resolution[1]//2, 1000)
 
         self.hsv_vals = {
-            "Rød": {'hmin': 160, 'smin': 144, 'vmin': 0, 'hmax': 179, 'smax': 255, 'vmax': 0},
-            "Blå": {'hmin': 111, 'smin': 0, 'vmin': 0, 'hmax': 179, 'smax': 255, 'vmax': 255},
-            "Grønn": {'hmin': 31, 'smin': 46, 'vmin': 0, 'hmax': 179, 'smax': 76, 'vmax': 185}
+            "Red": {'hmin': 0, 'smin': 107, 'vmin': 227, 'hmax': 179, 'smax': 255, 'vmax': 255},
+            "Blue": {'hmin': 99, 'smin': 73, 'vmin': 0, 'hmax': 158, 'smax': 255, 'vmax': 255},
+            "Yellow": {'hmin': 18, 'smin': 38, 'vmin': 223, 'hmax': 32, 'smax': 198, 'vmax': 255}
         }
         #self.color_finder = ColorFinder(False)
 
@@ -59,38 +57,53 @@ class Detection(Node):
         hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
         found_colors = []
+        combined_mask = None
 
         # Prosesser bildet for alle farger i hsvVals og slå sammen maskene
-        mask = None
         for name, hsv in self.hsv_vals.items():
-            _, currentMask = self.color_finder.update(img, hsv)
-            if mask is None:
-                mask = currentMask
-            else:
-                mask = cv2.bitwise_or(mask, currentMask)
+            lower = (hsv["hmin"], hsv["smin"], hsv["vmin"])
+            upper = (hsv["hmax"], hsv["smax"], hsv["vmax"])
+            mask = cv2.inRange(hsv_img, lower, upper)
+            
+            # Finn konturer på masken
+            contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2. CHAIN_APPROX_SIMPLE)
 
-        # Finn konturer på masken
-        img_contour, contours = cv2.findContours(img, mask, cv2.RETR_EXTERNAL, cv2. CHAIN_APPROX_SIMPLE)
+            # Sjekk om det finnes konturer (ballen funnet)
+            if contours:
+                largest_contour = max(contours, key = cv2.contourArea)
+                area = cv2.contourArea(largest_contour)
 
-        # Sjekk om det finnes konturer (ballen funnet)
-        if contours:
-            # Beregn avstand i x, y i forhold til senterpunktet
-            x = contours[0]['center'][0] - self.center_point[0]
-            y = (self.resolution[1] - contours[0]['center'][1]) - self.center_point[1]
-            # Estimer z ut fra areal (størrelse) av konturen
-            z = (contours[0]['area'] - self.center_point[2]) / 1000
+                # Terskel for å filterere bort støy
+                if area > 100:
+                    M = cv2.moments(largest_contour)
+                    if M["m00"] != 0:
+                        cX = M["m10"] / M["m00"]
+                        cY = M["m01"] / M["m00"]
+                    else:
+                        cX, cY = 0, 0 
 
-            msg = Point(x=x, y=y, z=z)
-            self.publisher.publish(msg)
+                    # Beregn avstand i x, y i forhold til scontours[0]['center'][0]enterpunktet
+                    x = cX - self.center_point[0]
+                    y = (self.resolution[1] - cY) - self.center_point[1]
+                    # Estimer z ut fra areal (størrelse) av konturen
+                    z = (area - self.center_point[2]) / 1000
 
-            found_colors.append(name)
+                    msg = Point(x=x, y=y, z=z)
+                    self.publisher.publish(msg)
+
+                    # Loggfører koordinatene til posisjon
+                    self.get_logger().info(
+                        f"Detected {name} kube at X: {x:.2f}, Y: {y:.2f}, Z: {x:.2f}"
+                    )
+
+                    found_colors.append(name)
 
         # Sjekk for ikke-detekterte objekter
         missing_object = [color for color in self.hsv_vals.keys() if color not in found_colors]
 
         if missing_object:
             error_msg = String()
-            error_msg.data = f"Mangler objekt med farge: {", ". join(missing_object)}"
+            error_msg.data = f"Missing object: {', '.join(missing_object)}"
             self.error_publisher.publish(error_msg)
             self.get_logger().warn(error_msg.data)
 
@@ -100,7 +113,6 @@ def main(args=None):
     rclpy.spin(detection_node)
     detection_node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
