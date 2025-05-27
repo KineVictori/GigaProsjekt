@@ -25,19 +25,45 @@ public:
     move_group_interface_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "ur_manipulator");
     RCLCPP_INFO(this->get_logger(), "Initializing MoveGroupInterface");
 
-    auto initial_pose = move_group_interface_->getCurrentPose();
+    // auto initial_pose = move_group_interface_->getCurrentPose();
 
-    RCLCPP_INFO(this->get_logger(), "Initial position: x=%.3f, y=%.3f, z=%.3f", 
-                initial_pose.pose.position.x, 
-                initial_pose.pose.position.y, 
-                initial_pose.pose.position.z);
+    // RCLCPP_INFO(this->get_logger(), "Initial position: x=%.3f, y=%.3f, z=%.3f", 
+    //             initial_pose.pose.position.x, 
+    //             initial_pose.pose.position.y, 
+    //             initial_pose.pose.position.z);
 
-    RCLCPP_INFO(this->get_logger(), "Initial orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f",
-                initial_pose.pose.orientation.x,
-                initial_pose.pose.orientation.y,
-                initial_pose.pose.orientation.z,
-                initial_pose.pose.orientation.w);
+    // RCLCPP_INFO(this->get_logger(), "Initial orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f",
+    //             initial_pose.pose.orientation.x,
+    //             initial_pose.pose.orientation.y,
+    //             initial_pose.pose.orientation.z,
+    //             initial_pose.pose.orientation.w
+    //           );
+
+    // move to home at start
+    set_home_position();
+    RCLCPP_INFO(this->get_logger(), "MoveGroupInterface initialized and home position set.");
   }
+
+  void setHomePosition() {
+    std::vector<double> home_joints = {0.0, -1.57, 1.57, 0.0, 0.0, 0.0};
+
+    move_group_interface_->setJointValueTarget(home_joints);
+    move_group_interface_->setStartStateToCurrentState();
+
+    // create a plan to move to the home position
+    moveit::planning_interface::MoveGroupInterface::Plan plan;
+    RCLCPP_INFO(this->get_logger(), "Setting home position...");
+    
+    // if successfully planned, execute the plan
+    if (move_group_interface_->plan(plan) == moveit::core::MoveItErrorCode::SUCCESS) {
+      move_group_interface_->execute(plan);
+    }
+    else {
+      RCLCPP_ERROR(this->get_logger(), "Failed to set home position.");
+    }
+  RCLCPP_INFO(this->get_logger(), "Home position set successfully.");
+  }
+
 
 private:
     std::shared_ptr<moveit::planning_interface::MoveGroupInterface> move_group_interface_;
