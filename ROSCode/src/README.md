@@ -24,3 +24,14 @@ No need to specify extra arguments in this case.
 
 ---
 
+# Move to Home Position
+
+To move the robot to its home position, use the following command:
+
+```bash
+ros2 topic pub /go_home std_msgs/msg/String "{data: 'go'}" --once
+```
+
+Make sure the robot controller is running before using this command. You can use the command at any time to return the robot to its home position, regardless of its current activity.
+
+---

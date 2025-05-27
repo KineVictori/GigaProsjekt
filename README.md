@@ -64,6 +64,27 @@ Hva skal gjøres?
 * Topics mellom kamera og IK (K)
 * Rapport disposisjon (Ø)
 
+# 27.05
+
+Oppmøte: Alle
+
+Hva er gjort?
+* Programatisk kontroll av robot
+* Inverse Kinematics
+* Detektere ulike objekter med ulike farger
+* Topics mellom Kamera og IK
+* Rapport Disposisjon
+* Bindeledd Kamera og IK
+* Error detection om det mangler farge
+
+Hva skal gjøres?
+* Porte fra cvzone til opencv (A)
+* Legge til bracket end-piece i moveit (JA)
+* Fikse robot kode (K/Ø)
+* Legge til hjem-position (K)
+* Rapportskriving
+
+
 ## Oppgaven
 Dere skal kunne flytte roboten til en hjemposisjon, som er en nøytral posisjon (for eksempel 90° knekk på albue). 
 

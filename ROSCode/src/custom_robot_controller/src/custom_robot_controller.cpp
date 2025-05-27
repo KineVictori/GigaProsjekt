@@ -5,6 +5,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
+#include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <moveit/move_group_interface/move_group_interface.hpp>
 #include <moveit_msgs/msg/collision_object.hpp>
@@ -24,29 +25,49 @@ public:
         "/target_robot_pose", 10,
         std::bind(&JointTargetSubscriberNode::joint_callback, this, std::placeholders::_1)
       );
+
+      task_complete_subscription_ = this->create_subscription<std_msgs::msg::String>(
+        "/task_complete", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+            RCLCPP_INFO(this->get_logger(), "Task complete received, returning to home.");
+            if (move_group_interface_) {
+                set_home_position();
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface not initialized! Cannot return to home.");
+            }
+        }
+    );
+
+      // home kommando subscriber
+      go_home_subscription_ = this->create_subscription<std_msgs::msg::String>(
+        "/go_home", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+          RCLCPP_INFO(this->get_logger(), "Home kommando mottatt, flytter til home posisjon.");
+          if (move_group_interface_) {
+            set_home_position();
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface ikke initialisert! Kan ikke flytte til home.");
+          }
+        }
+      );
     }
 
   void init_move_group() {
     move_group_interface_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "ur_manipulator");
     RCLCPP_INFO(this->get_logger(), "Initializing MoveGroupInterface");
 
-    auto initial_pose = move_group_interface_->getCurrentPose();
+    // auto initial_pose = move_group_interface_->getCurrentPose();
 
-    RCLCPP_INFO(this->get_logger(), "Initial position: x=%.3f, y=%.3f, z=%.3f", 
-                initial_pose.pose.position.x, 
-                initial_pose.pose.position.y, 
-                initial_pose.pose.position.z);
+    // RCLCPP_INFO(this->get_logger(), "Initial position: x=%.3f, y=%.3f, z=%.3f", 
+    //             initial_pose.pose.position.x, 
+    //             initial_pose.pose.position.y, 
+    //             initial_pose.pose.position.z);
 
-    RCLCPP_INFO(this->get_logger(), "Initial orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f",
-                initial_pose.pose.orientation.x,
-                initial_pose.pose.orientation.y,
-                initial_pose.pose.orientation.z,
-                initial_pose.pose.orientation.w);
-
-    //RCLCPP_INFO(this->get_logger(), "Initalizing PlanningSceneMonitor");
-    //planning_scene_monitor_ = std::make_unique<planning_scene_monitor::PlanningSceneMonitor>(shared_from_this(), "robot_description");
-
-    //const planning_scene::PlanningScenePtr planning_scene = planning_scene_monitor_->getPlanningScene();
+    //RCLCPP_INFO(this->get_logger(), "Initial orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f",
+    //            initial_pose.pose.orientation.x,
+    //            initial_pose.pose.orientation.y,
+    //            initial_pose.pose.orientation.z,
+    //            initial_pose.pose.orientation.w);
 
     RCLCPP_INFO(this->get_logger(), "Attaching camera tool to robot model");
 
@@ -69,13 +90,39 @@ public:
     object_to_attach.touch_links.push_back("wrist_3_link");
 
     planning_scene_interface_.applyAttachedCollisionObject(object_to_attach);
+
+    // move to home at start
+    set_home_position();
+    RCLCPP_INFO(this->get_logger(), "MoveGroupInterface initialized and home position set.");
   }
+
+  void set_home_position() {
+    std::vector<double> home_joints = {0.0, -1.57, 1.57, 0.0, 0.0, 0.0}; // {shoulder_pan, shoulder_lift, elbow, wrist_1, wrist_2, wrist_3}
+
+    move_group_interface_->setJointValueTarget(home_joints);
+    move_group_interface_->setStartStateToCurrentState();
+
+    // create a plan to move to the home position
+    moveit::planning_interface::MoveGroupInterface::Plan plan;
+    RCLCPP_INFO(this->get_logger(), "Setting home position...");
+    
+    // if successfully planned, execute the plan
+    if (move_group_interface_->plan(plan) == moveit::core::MoveItErrorCode::SUCCESS) {
+      move_group_interface_->execute(plan);
+    }
+    else {
+      RCLCPP_ERROR(this->get_logger(), "Failed to set home position.");
+    }
+  // RCLCPP_INFO(this->get_logger(), "Home position set successfully.");
+  }
+
 
 private:
     std::shared_ptr<moveit::planning_interface::MoveGroupInterface> move_group_interface_;
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr subscription_;
-    //std::unique_ptr<planning_scene_monitor::PlanningSceneMonitor> planning_scene_monitor_;
     moveit::planning_interface::PlanningSceneInterface planning_scene_interface_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr task_complete_subscription_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr go_home_subscription_;
 
     void joint_callback(const geometry_msgs::msg::Pose &pose) {
       move_group_interface_->setPoseTarget(pose);

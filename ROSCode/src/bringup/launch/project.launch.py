@@ -53,7 +53,7 @@ def generate_launch_description():
         }.items()
     )
 
-    # Start the camera detection node
+    # Start the usb cam node
     camera_node = Node(
         package='usb_cam',
         executable='usb_cam_node_exe',
@@ -68,6 +68,7 @@ def generate_launch_description():
         name='detection_node'
     )
 
+    # Start the object pointer node
     object_pointer_node = Node(
         package='object_pointer',
         executable='object_pointer_node',
