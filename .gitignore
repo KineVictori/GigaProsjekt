@@ -4,3 +4,4 @@ install/
 .cache
 venv
 __pycache__
+*.orig

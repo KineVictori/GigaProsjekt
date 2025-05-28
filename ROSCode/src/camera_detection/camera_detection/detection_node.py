@@ -17,7 +17,6 @@ class Detection(Node):
             "image_raw",
             self.image_callback,
             10)
-        self.subscription  # prevent unused variable warning
 
         # Publish object position
         self.publisher = self.create_publisher(
