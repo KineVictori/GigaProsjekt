@@ -75,6 +75,7 @@ public:
     camera_tool_object.object.id = "camera_tool";
     camera_tool_object.object.header.frame_id = "tool0";
 
+    // Adding a box that simulates being the camera, to prevent bumping the camera
     shape_msgs::msg::SolidPrimitive camera_tool_box;
     camera_tool_box.type = shape_msgs::msg::SolidPrimitive::BOX;
     camera_tool_box.dimensions.resize(3);
@@ -92,6 +93,7 @@ public:
     planning_scene_interface_.applyAttachedCollisionObject(camera_tool_object);
     move_group_interface_->attachObject("camera_tool", "tool0");
 
+    // Add in a ground object, such that robot knows that it cannot move there
     moveit_msgs::msg::CollisionObject ground_object;
     ground_object.id = "ground";
     ground_object.header.frame_id = move_group_interface_->getPlanningFrame();
