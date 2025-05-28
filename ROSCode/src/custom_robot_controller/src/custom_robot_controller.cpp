@@ -71,26 +71,50 @@ public:
 
     RCLCPP_INFO(this->get_logger(), "Attaching camera tool to robot model");
 
-    moveit_msgs::msg::AttachedCollisionObject object_to_attach;
-    object_to_attach.object.id = "camera_tool";
+    moveit_msgs::msg::AttachedCollisionObject camera_tool_object;
+    camera_tool_object.object.id = "camera_tool";
+    camera_tool_object.object.header.frame_id = "tool0";
 
-    shape_msgs::msg::SolidPrimitive rectangle;
-    rectangle.type = shape_msgs::msg::SolidPrimitive::BOX;
-    rectangle.dimensions.resize(3);
-    rectangle.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = 0.1;
-    rectangle.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = 0.1;
-    rectangle.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = 0.1;
+    shape_msgs::msg::SolidPrimitive camera_tool_box;
+    camera_tool_box.type = shape_msgs::msg::SolidPrimitive::BOX;
+    camera_tool_box.dimensions.resize(3);
+    camera_tool_box.dimensions[camera_tool_box.BOX_X] = 0.1;
+    camera_tool_box.dimensions[camera_tool_box.BOX_Y] = 0.1;
+    camera_tool_box.dimensions[camera_tool_box.BOX_Z] = 0.1;
 
-    object_to_attach.object.header.frame_id = "tool0";
-    object_to_attach.object.primitives.push_back(rectangle);
-    object_to_attach.object.operation = object_to_attach.object.ADD;
+    camera_tool_object.object.primitives.push_back(camera_tool_box);
+    camera_tool_object.object.operation = camera_tool_object.object.ADD;
 
-    object_to_attach.link_name = object_to_attach.object.header.frame_id;
-    object_to_attach.touch_links.push_back("wrist_2_link");
-    object_to_attach.touch_links.push_back("wrist_3_link");
+    camera_tool_object.link_name = camera_tool_object.object.header.frame_id;
+    camera_tool_object.touch_links.push_back("wrist_2_link");
+    camera_tool_object.touch_links.push_back("wrist_3_link");
 
-    planning_scene_interface_.applyAttachedCollisionObject(object_to_attach);
+    planning_scene_interface_.applyAttachedCollisionObject(camera_tool_object);
+    move_group_interface_->attachObject("camera_tool", "tool0");
 
+    moveit_msgs::msg::CollisionObject ground_object;
+    ground_object.id = "ground";
+    ground_object.header.frame_id = move_group_interface_->getPlanningFrame();
+
+    shape_msgs::msg::SolidPrimitive ground_primitive;
+    ground_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+    ground_primitive.dimensions.resize(3);
+    ground_primitive.dimensions[ground_primitive.BOX_X] = 1.0;
+    ground_primitive.dimensions[ground_primitive.BOX_Y] = 0.75;
+    ground_primitive.dimensions[ground_primitive.BOX_Z] = 0.02;
+
+    geometry_msgs::msg::Pose ground_pose;
+    ground_pose.position.x = ground_primitive.dimensions[ground_primitive.BOX_X] * 0.4;
+    ground_pose.position.y = 0;
+    ground_pose.position.z = 0;
+
+    ground_object.primitives.push_back(ground_primitive);
+    ground_object.primitive_poses.push_back(ground_pose);
+    ground_object.operation = ground_object.ADD;
+
+    planning_scene_interface_.applyCollisionObject(ground_object);
+    move_group_interface_->attachObject("ground", "base_link_inertia");
+    
     // move to home at start
     set_home_position();
     RCLCPP_INFO(this->get_logger(), "MoveGroupInterface initialized and home position set.");

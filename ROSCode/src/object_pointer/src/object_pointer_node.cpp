@@ -13,9 +13,9 @@ public:
         msg.position.y = point.y;
         msg.position.z = point.z + 0.1;
         msg.orientation.x = 0;
-        msg.orientation.y = 0;
+        msg.orientation.y = 1;
         msg.orientation.z = 0;
-        msg.orientation.w = 1;
+        msg.orientation.w = 0;
 
         pose_publisher_->publish(msg);
       };
