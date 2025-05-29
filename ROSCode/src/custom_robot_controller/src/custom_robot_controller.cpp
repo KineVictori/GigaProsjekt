@@ -38,15 +38,15 @@ public:
         }
     );
 
-      // home kommando subscriber
+      // Home command subscription
       go_home_subscription_ = this->create_subscription<std_msgs::msg::String>(
         "/go_home", 10,
         [this](const std_msgs::msg::String::SharedPtr msg) {
-          RCLCPP_INFO(this->get_logger(), "Home kommando mottatt, flytter til home posisjon.");
+          RCLCPP_INFO(this->get_logger(), "Go home command received.");
           if (move_group_interface_) {
             set_home_position();
           } else {
-            RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface ikke initialisert! Kan ikke flytte til home.");
+            RCLCPP_ERROR(this->get_logger(), "MoveGroupInterface not initialized! Cannot return to home.");
           }
         }
       );
