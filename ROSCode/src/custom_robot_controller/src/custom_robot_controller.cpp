@@ -156,45 +156,16 @@ private:
 
 };
 
-// int main(int argc, char * argv[])
-// {
-//   rclcpp::init(argc, argv);
-//   auto node = std::make_shared<JointTargetSubscriberNode>();
-  
-//   rclcpp::executors::SingleThreadedExecutor executor;
-//   executor.add_node(node);
-//   auto spinner = std::thread([&executor]() { executor.spin(); });
-
-//   node->init_move_group();
-
-//   rclcpp::shutdown();
-//   spinner.join();
-//   return 0;
-// }
-
-
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<JointTargetSubscriberNode>();
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(node);
-
-  std::thread spinner([&executor]() {
-    executor.spin();
-  });
-
   node->init_move_group();
 
-  while (rclcpp::ok()) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  }
-
-  executor.cancel();
-  spinner.join();
+  rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;
 }
+
 
 
