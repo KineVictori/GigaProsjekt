@@ -27,8 +27,6 @@ public:
     }
 
 private:
-
-private:
   rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr target_subscriber_;
   rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr pose_publisher_;
 };
