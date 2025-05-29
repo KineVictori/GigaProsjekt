@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-#import cvzone
-#from cvzone.ColorModule import ColorFinder
 
 def availableCameras(maxPorts=5):
     availablePorts = []
@@ -67,7 +65,7 @@ def main():
 
     setupTrackbars()
 
-    print("Starter kamerastream. Trykk 's' for å lagre HSV-verdier, 'q' for å avslutte.")
+    print("Starter kamerastream.")
 
     while True:
         ret, img = camera.read()
@@ -103,13 +101,6 @@ def main():
         cv2.imshow("Kalibrering - Maske", mask)
         cv2.imshow("Kalibrering - Resultat", result)
         
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord('s'):
-            print("Lagrer verdier:", hsv_vals)
-            break
-        elif key == ord('q'):
-            break
-
     camera.release()
     cv2.destroyAllWindows()
 
