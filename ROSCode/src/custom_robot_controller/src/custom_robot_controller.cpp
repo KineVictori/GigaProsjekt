@@ -56,19 +56,6 @@ public:
     move_group_interface_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "ur_manipulator");
     RCLCPP_INFO(this->get_logger(), "Initializing MoveGroupInterface");
 
-    // auto initial_pose = move_group_interface_->getCurrentPose();
-
-    // RCLCPP_INFO(this->get_logger(), "Initial position: x=%.3f, y=%.3f, z=%.3f", 
-    //             initial_pose.pose.position.x, 
-    //             initial_pose.pose.position.y, 
-    //             initial_pose.pose.position.z);
-
-    //RCLCPP_INFO(this->get_logger(), "Initial orientation (quaternion): x=%.3f, y=%.3f, z=%.3f, w=%.3f",
-    //            initial_pose.pose.orientation.x,
-    //            initial_pose.pose.orientation.y,
-    //            initial_pose.pose.orientation.z,
-    //            initial_pose.pose.orientation.w);
-
     RCLCPP_INFO(this->get_logger(), "Attaching camera tool to robot model");
 
     moveit_msgs::msg::AttachedCollisionObject camera_tool_object;
@@ -123,7 +110,7 @@ public:
   }
 
   void set_home_position() {
-    std::vector<double> home_joints = {0.0, -1.57, 1.57, 0.0, 0.0, 0.0}; // {shoulder_pan, shoulder_lift, elbow, wrist_1, wrist_2, wrist_3}
+    std::vector<double> home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0}; // {shoulder_pan, shoulder_lift, elbow, wrist_1, wrist_2, wrist_3}
 
     move_group_interface_->setJointValueTarget(home_joints);
     move_group_interface_->setStartStateToCurrentState();
